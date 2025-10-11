@@ -1,6 +1,10 @@
 FROM php:7
 
-RUN apt -y update && apt -y upgrade
+RUN apt -q -qq -y update && \
+    apt -q -qq -y upgrade > /dev/null && \
+    apt install -q -qq -y curl git unzip > /dev/null && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
